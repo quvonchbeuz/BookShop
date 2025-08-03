@@ -61,7 +61,7 @@ public class AdminService {
                     addAdmin();
                 }
                 case 9 ->{
-
+                    removeAdmin();
                 }
                 case 0 ->{
                     return;
@@ -103,5 +103,15 @@ public class AdminService {
             System.out.println(transaction);
         }
     }
-
+    private void removeAdmin(){
+        System.out.println("Enter admin username: ");
+        String username = ScannerUtil.STRING.next();
+        for (Profile user : BookStore.admins) {
+            if (user.getUsername().equals(username)){
+                user.setRole("USER");
+                BookStore.users.add(user);
+                BookStore.admins.remove(user);
+            }
+        }
+    }
 }
