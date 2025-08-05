@@ -5,11 +5,22 @@ import java.util.UUID;
 
 public class BaseEntity {
     protected UUID id;
-    protected LocalDateTime createdDate;
+    protected LocalDateTime date;
 
-    public BaseEntity(UUID id, LocalDateTime createdDate) {
+    public UUID getId() {
+        return id;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setId(UUID id) {
         this.id = id;
-        this.createdDate = createdDate;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public BaseEntity() {

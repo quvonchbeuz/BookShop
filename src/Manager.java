@@ -1,27 +1,14 @@
 import dto.Profile;
+import enums.UserRole;
 import service.AdminService;
-import service.BookStore;
 import service.ProfileService;
 import service.UserService;
 import util.ScannerUtil;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 public class Manager {
     ProfileService profileService = new ProfileService();
     public Manager() {
-        Profile admin = new Profile();
-        admin.setId(UUID.randomUUID());
-        admin.setUsername("Admin");
-        admin.setName("Admin");
-        admin.setSurname("Admin");
-        admin.setAge((short) 23);
-        admin.setPhone("8888");
-        admin.setPassword("8888");
-        admin.setRole("ADMIN");
-        admin.setCreatedDate(LocalDateTime.now());
-        BookStore.admins.add(admin);
+//        profileService.initAdmin();
     }
 
     public void start(){
@@ -64,9 +51,9 @@ public class Manager {
         System.out.println(profile);
         if (profile == null){
             System.out.println("Password incorrect");
-        } else if (profile.getRole().equals("ADMIN")){
+        } else if (profile.getRole().equals(UserRole.ADMIN)){
             admin(profile);
-        } else if (profile.getRole().equals("USER")) {
+        } else if (profile.getRole().equals(UserRole.USER)) {
            user(profile);
         }
     }

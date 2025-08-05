@@ -1,6 +1,10 @@
 package dto;
 
+import enums.UserRole;
+import enums.UserStatus;
+
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Profile extends BaseEntity{
@@ -10,9 +14,9 @@ public class Profile extends BaseEntity{
     private short age;
     private String phone;
     private String password;
-    private String role;
-    private String status;
-    private Double balance;
+    private UserRole role;
+    private UserStatus status;
+    private Double balance = 0d;
 
     public Profile(String username, String name, String surname, short age, String phone, String password) {
         this.username = username;
@@ -21,10 +25,10 @@ public class Profile extends BaseEntity{
         this.age = age;
         this.phone = phone;
         this.password = password;
-        this.role = "USER";
+        this.role = UserRole.USER;
         id = UUID.randomUUID();
-        createdDate = LocalDateTime.now();
-        status = "ACTIVE";
+        date = LocalDateTime.now();
+        status = UserStatus.ACTIVE;
         balance = 0d;
     }
 
@@ -79,31 +83,19 @@ public class Profile extends BaseEntity{
         this.password = password;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
-    public void setId(UUID id){
-        this.id = id;
-    }
-    public UUID getId(){
-        return id;
-    }
-    public void setCreatedDate(LocalDateTime now) {
-        this.createdDate = now;
-    }
-    public LocalDateTime getCreatedDate(){
-        return createdDate;
-    }
 
-    public String getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
     }
 
@@ -112,7 +104,19 @@ public class Profile extends BaseEntity{
     }
 
     public void setBalance(Double balance) {
-        this.balance = balance;
+        this.balance += balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return Objects.equals(username, profile.username) && Objects.equals(name, profile.name) && Objects.equals(surname, profile.surname) && Objects.equals(phone, profile.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, name, surname, phone);
     }
 
     @Override
@@ -127,7 +131,7 @@ public class Profile extends BaseEntity{
                 ", role='" + role + '\'' +
                 ", balance=" + balance +
                 ", id=" + super.id +
-                ", createdDate=" + super.createdDate;
+                ", createdDate=" + super.date;
     }
 
 

@@ -3,13 +3,16 @@ package dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Transaction implements Comparable<Transaction>{
+public class Sales extends BaseEntity{
     Book book;
     Profile user;
     LocalDateTime date;
     UUID transactionId;
 
-    public Transaction(Book book, Profile user) {
+    public Sales() {
+    }
+
+    public Sales(Book book, Profile user) {
         this.book = book;
         this.user = user;
         this.date = LocalDateTime.now();
@@ -33,17 +36,11 @@ public class Transaction implements Comparable<Transaction>{
     }
 
     @Override
-    public int compareTo(Transaction o) {
-        return o.date.compareTo(this.date);
-    }
-
-    @Override
     public String toString() {
-        return "Transaction{" +
-                "date=" + date +
-                ", transactionId=" + transactionId +
-                ", user=" + user +
-                ", book=" + book +
-                '}';
+        return date +
+                ", " + transactionId +
+                ", " + user.getUsername() +
+                ", " + book.getTitle() +
+                ", " + book.getAuthor();
     }
 }
